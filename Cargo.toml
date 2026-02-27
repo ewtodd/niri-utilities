@@ -1,0 +1,10 @@
+[package]
+name = "niri-utilities"
+version = "26.2.26"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+clap_complete = "4"
+niri-ipc = "25.11.0"
