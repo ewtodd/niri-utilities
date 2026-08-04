@@ -14,7 +14,11 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Run the auto-center daemon
-    CenteringDaemon,
+    CenteringDaemon {
+        /// Only center on the specified output display.
+        #[arg(long)]
+        output: Option<String>,
+    },
     /// Generate shell completions
     Completions {
         #[arg(value_enum)]
@@ -35,9 +39,9 @@ fn main() -> Result<()> {
             );
             Ok(())
         }
-        Commands::CenteringDaemon => {
-            let socket = niri::connect()?;
-            commands::centering_daemon(socket)
+        Commands::CenteringDaemon { output } => {
+            let command_socket = niri::connect()?;
+            commands::centering_daemon(command_socket, output.as_deref())
         }
     }
 }
